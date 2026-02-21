@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inzmamul Haq Zakir — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #f5f0e8;
+    --dark: #1a1410;
+    --gold: #b8965a;
+    --gold-light: #d4b483;
+    --muted: #6b5e4e;
+    --border: rgba(184,150,90,0.25);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--dark);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── Noise texture overlay ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 1000; opacity: 0.5;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 4rem;
+    background: rgba(245,240,232,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-weight: 600; letter-spacing: 0.1em;
+    color: var(--dark); text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative; overflow: hidden;
+  }
+
+  .hero-bg-line {
+    position: absolute; left: 50%; top: 10%;
+    width: 1px; height: 80%;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    opacity: 0.3;
+  }
+
+  .hero-content { text-align: center; position: relative; }
+
+  .hero-eyebrow {
+    font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 300; line-height: 1.05;
+    letter-spacing: -0.01em;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+
+  h1 em { font-style: italic; color: var(--gold); }
+
+  .hero-sub {
+    margin-top: 1.5rem; font-size: 0.85rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--muted);
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-divider {
+    width: 60px; height: 1px; background: var(--gold);
+    margin: 2rem auto;
+    animation: expand 0.8s 0.45s ease both;
+  }
+
+  .hero-desc {
+    max-width: 520px; margin: 0 auto;
+    font-size: 0.95rem; line-height: 1.9; color: var(--muted);
+    animation: fadeUp 0.8s 0.5s ease both;
+  }
+
+  .hero-cta {
+    margin-top: 2.5rem;
+    display: inline-block;
+    padding: 0.85rem 2.5rem;
+    border: 1px solid var(--gold);
+    color: var(--dark); text-decoration: none;
+    font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+    transition: all 0.35s;
+    animation: fadeUp 0.8s 0.65s ease both;
+  }
+  .hero-cta:hover { background: var(--gold); color: var(--cream); }
+
+  /* ── SECTIONS ── */
+  section { padding: 7rem 4rem; }
+
+  .section-label {
+    font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300; line-height: 1.2;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    background: var(--dark); color: var(--cream);
+    position: relative; overflow: hidden;
+  }
+
+  #about::before {
+    content: 'ABOUT';
+    position: absolute; right: -2rem; top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12rem; font-weight: 600;
+    color: rgba(184,150,90,0.05);
+    letter-spacing: 0.1em; pointer-events: none;
+  }
+
+  .about-grid {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1.4fr;
+    gap: 5rem; align-items: center;
+  }
+
+  .about-left .section-label { color: var(--gold-light); }
+  .about-left h2 { color: var(--cream); }
+
+  .about-left h2 em { font-style: italic; color: var(--gold); }
+
+  .about-stats {
+    margin-top: 2.5rem;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .stat {
+    border-top: 1px solid rgba(184,150,90,0.3);
+    padding-top: 1rem;
+  }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem; color: var(--gold); font-weight: 300;
+  }
+
+  .stat-label {
+    font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(245,240,232,0.5); margin-top: 0.25rem;
+  }
+
+  .about-text { color: rgba(245,240,232,0.75); line-height: 2; font-size: 0.95rem; }
+  .about-text p + p { margin-top: 1.2rem; }
+
+  .skills-list {
+    margin-top: 2rem;
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+  }
+
+  .skill-tag {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border: 1px solid rgba(184,150,90,0.35);
+    color: var(--gold-light);
+  }
+
+  /* ── EXPERIENCE / PORTFOLIO ── */
+  #portfolio { max-width: 1100px; margin: 0 auto; }
+
+  .portfolio-header { margin-bottom: 4rem; }
+
+  .exp-grid { display: grid; gap: 0; }
+
+  .exp-item {
+    display: grid; grid-template-columns: 180px 1fr;
+    gap: 2rem; padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s;
+    position: relative;
+  }
+
+  .exp-item::before {
+    content: '';
+    position: absolute; left: -4rem; top: 0; bottom: 0; width: 3px;
+    background: var(--gold);
+    transform: scaleY(0); transform-origin: top;
+    transition: transform 0.4s ease;
+  }
+
+  .exp-item:hover::before { transform: scaleY(1); }
+  .exp-item:hover { padding-left: 1rem; }
+
+  .exp-year {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem; color: var(--gold); letter-spacing: 0.05em;
+    padding-top: 0.2rem;
+  }
+
+  .exp-org {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); margin-top: 0.3rem;
+  }
+
+  .exp-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 400; margin-bottom: 0.6rem;
+  }
+
+  .exp-desc { font-size: 0.88rem; line-height: 1.9; color: var(--muted); }
+
+  /* ── EDUCATION ── */
+  #education { background: #f0ebe0; }
+  .edu-container { max-width: 1100px; margin: 0 auto; }
+  .edu-header { margin-bottom: 3rem; }
+
+  .edu-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .edu-card {
+    background: var(--cream);
+    padding: 2rem;
+    border: 1px solid var(--border);
+    position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .edu-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+
+  .edu-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+    background: var(--gold);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .edu-card:hover::after { transform: scaleX(1); }
+
+  .edu-degree {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem; margin-bottom: 0.5rem;
+  }
+
+  .edu-school { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.05em; }
+  .edu-year {
+    margin-top: 1.2rem;
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold);
+  }
+  .edu-pct {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; color: var(--dark); margin-top: 0.3rem;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--dark); color: var(--cream);
+    text-align: center;
+  }
+
+  #contact .section-label { color: var(--gold-light); }
+  #contact h2 { color: var(--cream); margin-bottom: 1rem; }
+  #contact h2 em { color: var(--gold); font-style: italic; }
+
+  .contact-sub {
+    color: rgba(245,240,232,0.6); font-size: 0.9rem; margin-bottom: 3rem;
+    max-width: 400px; margin-left: auto; margin-right: auto;
+  }
+
+  .contact-links {
+    display: flex; flex-wrap: wrap; gap: 1.2rem;
+    justify-content: center; margin-bottom: 4rem;
+  }
+
+  .contact-link {
+    padding: 1rem 2rem;
+    border: 1px solid rgba(184,150,90,0.4);
+    color: var(--cream); text-decoration: none;
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    transition: all 0.3s;
+  }
+
+  .contact-link:hover { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+
+  .contact-info {
+    display: flex; flex-wrap: wrap; gap: 2rem;
+    justify-content: center;
+    border-top: 1px solid rgba(184,150,90,0.2);
+    padding-top: 2.5rem;
+  }
+
+  .contact-info-item { font-size: 0.8rem; color: rgba(245,240,232,0.5); }
+  .contact-info-item span { display: block; color: var(--gold-light); margin-bottom: 0.3rem; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #110e0a;
+    padding: 1.5rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.7rem; color: rgba(245,240,232,0.25); letter-spacing: 0.1em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes expand {
+    from { width: 0; }
+    to { width: 60px; }
+  }
+
+  /* ── REVEAL ── */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    section { padding: 5rem 1.5rem; }
+    #hero { padding: 6rem 1.5rem 3rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .exp-item::before { left: -1.5rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">I · H · Z</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#portfolio">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-line"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Engineer · Educator · Social Development Professional</p>
+    <h1>Inzmamul <em>Haq</em><br>Zakir</h1>
+    <p class="hero-sub">B.Tech EEE &nbsp;·&nbsp; Tonk, Rajasthan</p>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">
+      A dedicated professional with a foundation in Electrical & Electronics Engineering, 
+      combining teaching, social programme management, and research across India.
+    </p>
+    <a href="#portfolio" class="hero-cta">View Experience</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-left reveal">
+      <p class="section-label">Who I Am</p>
+      <h2>Driven by <em>purpose</em> &amp; dedication</h2>
+      <div class="about-stats">
+        <div class="stat">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">75%</div>
+          <div class="stat-label">B.Tech Score</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Languages</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">GATE</div>
+          <div class="stat-label">Qualified 2012</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <p>To excel in my profession by increasing the sphere of my knowledge and improving the quality of work through dedication — contributing towards the development of the organization and community I serve.</p>
+      <p>My journey spans engineering, education, and social development. I have taught mathematics at PGT level, managed UNICEF-funded child protection programmes, conducted field research, and led fellowship departments — each role shaped by a commitment to meaningful impact.</p>
+      <p>I am passionate about emerging technologies, geopolitics, and issues that concern humanity at large. I believe in TEAM: <em>Together Everyone Accomplishes More.</em></p>
+      <div class="skills-list">
+        <span class="skill-tag">Project Management</span>
+        <span class="skill-tag">Field Research</span>
+        <span class="skill-tag">Education</span>
+        <span class="skill-tag">Team Leadership</span>
+        <span class="skill-tag">MS Office</span>
+        <span class="skill-tag">Adaptability</span>
+        <span class="skill-tag">English · Hindi · Urdu</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="portfolio" style="padding-top: 7rem; padding-bottom: 7rem;">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <div class="portfolio-header reveal">
+      <p class="section-label">Career Timeline</p>
+      <h2>Professional Experience</h2>
+    </div>
+    <div class="exp-grid">
+      
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-year">Jan 2025 – Jul 2025</div>
+          <div class="exp-org">Jamiat Ulama I Hind · Delhi</div>
+        </div>
+        <div>
+          <div class="exp-title">Programme & Fellowship Officer</div>
+          <div class="exp-desc">Worked in the Justice and Empowerment of Minorities (JEM) Department, recording and archiving hate crime reports. Subsequently led the Maulana Rasheed Ahmed Gangohi Fellowship Department, successfully placing fellows across various Jamiat departments.</div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-year">Jan 2024 – Jun 2024</div>
+          <div class="exp-org">ActionAid · UNICEF · Jaisalmer</div>
+        </div>
+        <div>
+          <div class="exp-title">District Coordinator — Child Protection</div>
+          <div class="exp-desc">Coordinated the "Protecting Children from the Risk of Labor and Migration" programme in Jaisalmer district for UNICEF, driving ground-level implementation and community engagement over 6 months.</div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-year">2024</div>
+          <div class="exp-org">GPN · ActionAid · Univ. of Kassel</div>
+        </div>
+        <div>
+          <div class="exp-title">Field Researcher — Teenage Pregnancy Study</div>
+          <div class="exp-desc">Conducted field research in Jaisalmer district for a study on teenage pregnancy, working alongside ActionAid Association and the University of Kassel as institutional partners.</div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-year">Oct – Dec 2022</div>
+          <div class="exp-org">ActionAid · UNICEF · Nagaur</div>
+        </div>
+        <div>
+          <div class="exp-title">District Coordinator — Ending Child Marriage</div>
+          <div class="exp-desc">Served as District Coordinator for the UNICEF "Global Programme on Ending Child Marriage (ECM)" in Nagaur District, mobilising communities and monitoring programme outcomes.</div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-year">Feb – May 2022</div>
+          <div class="exp-org">ActionAid · Azim Premji Foundation</div>
+        </div>
+        <div>
+          <div class="exp-title">Programme Manager — Vaccination Project</div>
+          <div class="exp-desc">Managed the "100% Vaccination Project" funded by the Azim Premji Foundation, overseeing programme delivery, stakeholder coordination, and reporting.</div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-year">~2014 – 2018</div>
+          <div class="exp-org">Various Institutions · Tonk</div>
+        </div>
+        <div>
+          <div class="exp-title">Mathematics Teacher (PGT Level)</div>
+          <div class="exp-desc">Taught mathematics at PGT level for 4 years across private schools and coaching institutes including Tonk Public School and Noble Senior Secondary School in Tonk District.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="edu-container">
+    <div class="edu-header reveal">
+      <p class="section-label">Academic Background</p>
+      <h2>Education &amp; Qualifications</h2>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-degree">B.Tech — Electrical &amp; Electronics Engineering</div>
+        <div class="edu-school">Younis Sultan College of Engineering, Hyderabad · JNTU</div>
+        <div class="edu-year">2008 – 2012</div>
+        <div class="edu-pct">75%</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-degree">Senior Secondary (PCM)</div>
+        <div class="edu-school">Regional Public Sr. Sec. School, Tonk · BSER Ajmer</div>
+        <div class="edu-year">2008</div>
+        <div class="edu-pct">70%</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-degree">Secondary Education</div>
+        <div class="edu-school">Regional Public Sr. Sec. School, Tonk · BSER Ajmer</div>
+        <div class="edu-year">2006</div>
+        <div class="edu-pct">74%</div>
+      </div>
+      <div class="edu-card reveal" style="border-color: var(--gold); background: linear-gradient(135deg, #f5f0e8, #ede5d4);">
+        <div class="edu-degree">GATE Qualified</div>
+        <div class="edu-school">Graduate Aptitude Test in Engineering</div>
+        <div class="edu-year">2012</div>
+        <div class="edu-pct" style="font-size:1.4rem; margin-top:0.6rem;">National Qualifying Exam</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-degree">IB ACIO Written Exam</div>
+        <div class="edu-school">Intelligence Bureau — ACIO</div>
+        <div class="edu-year">2015</div>
+        <div class="edu-pct" style="font-size:1.4rem; margin-top:0.6rem;">Qualified</div>
+      </div>
+    </div>
+
+    <!-- Engineering Projects -->
+    <div style="margin-top: 4rem;" class="reveal">
+      <p class="section-label">Engineering Projects</p>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem;">
+        <div style="padding: 1.8rem; border: 1px solid var(--border); background: var(--cream);">
+          <div style="font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:0.5rem;">Major Project</div>
+          <div style="font-family:'Cormorant Garamond',serif; font-size:1.15rem;">Automatic Meter Reading using IrDA</div>
+        </div>
+        <div style="padding: 1.8rem; border: 1px solid var(--border); background: var(--cream);">
+          <div style="font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:0.5rem;">Mini Project</div>
+          <div style="font-family:'Cormorant Garamond',serif; font-size:1.15rem;">Study of HVDC Light for AC/DC Interconnected Transmission</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">Get In Touch</p>
+  <h2>Let's <em>connect</em></h2>
+  <p class="contact-sub">Open to opportunities in social development, education, research, and programme management.</p>
+  <div class="contact-links">
+    <a href="mailto:inzmam0219@yahoo.com" class="contact-link">Email Me</a>
+    <a href="tel:+919511504370" class="contact-link">Call: +91 9511504370</a>
+    <a href="tel:+919460314794" class="contact-link">Call: +91 9460314794</a>
+  </div>
+  <div class="contact-info">
+    <div class="contact-info-item">
+      <span>Email</span>
+      inzmam0219@yahoo.com
+    </div>
+    <div class="contact-info-item">
+      <span>Location</span>
+      Tonk, Rajasthan — 304001
+    </div>
+    <div class="contact-info-item">
+      <span>Languages</span>
+      English · Hindi · Urdu
+    </div>
+    <div class="contact-info-item">
+      <span>Nationality</span>
+      Indian
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Inzmamul Haq Zakir</span>
+  <span>Engineer · Educator · Social Professional</span>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
