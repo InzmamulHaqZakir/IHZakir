@@ -35,15 +35,13 @@
   .hero-bg-line { position: absolute; left: 50%; top: 10%; width: 1px; height: 80%; background: linear-gradient(to bottom, transparent, var(--gold), transparent); opacity: 0.3; }
   .hero-content { text-align: center; position: relative; }
   .hero-photo-wrap {
-    width: 150px; height: 150px; border-radius: 50%;
+    width: 130px; height: 130px; border-radius: 50%;
     margin: 0 auto 1.8rem;
-    border: 3px solid var(--gold);
+    border: 2px solid var(--gold);
     padding: 4px;
     animation: fadeUp 0.8s ease both;
-    overflow: hidden;
-    flex-shrink: 0;
   }
-  .hero-photo-wrap img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: center top; display: block; }
+  .hero-photo-wrap img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
   .hero-eyebrow { font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; animation: fadeUp 0.8s 0.1s ease both; }
   h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.5rem, 8vw, 7rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.01em; animation: fadeUp 0.8s 0.2s ease both; }
   h1 em { font-style: italic; color: var(--gold); }
@@ -143,7 +141,7 @@
 <body>
 
 <nav>
-  <a href="#hero" class="nav-logo" style="font-size:1rem; letter-spacing:0.08em;">Inzmamul Haq Zakir</a>
+  <a href="#hero" class="nav-logo">I · H · Z</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#portfolio">Experience</a></li>
@@ -228,7 +226,7 @@
         <div><div class="exp-title">District Coordinator — Child Protection</div><div class="exp-desc">Coordinated the "Protecting Children from the Risk of Labor and Migration" programme in Jaisalmer district for UNICEF, driving ground-level implementation and community engagement over 6 months.</div></div>
       </div>
       <div class="exp-item reveal">
-        <div><div class="exp-year">Feb 2024 – Apr 2024</div><div class="exp-org">GPN · ActionAid · Univ. of Kassel</div></div>
+        <div><div class="exp-year">2024</div><div class="exp-org">GPN · ActionAid · Univ. of Kassel</div></div>
         <div><div class="exp-title">Field Researcher — Teenage Pregnancy Study</div><div class="exp-desc">Conducted field research in Jaisalmer district for a study on teenage pregnancy, working alongside ActionAid Association and the University of Kassel as institutional partners.</div></div>
       </div>
       <div class="exp-item reveal">
@@ -303,7 +301,7 @@
   <h2>Let's <em>connect</em></h2>
   <p class="contact-sub">Open to opportunities in social development, education, research, and programme management.</p>
   <div class="contact-links">
-    <a href="/cdn-cgi/l/email-protection#d5bcbbafb8b4b8e5e7e4ec95acb4bdbabafbb6bab8" class="contact-link">
+    <a href="mailto:inzmam0219@yahoo.com" class="contact-link">
       <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
       Email Me
     </a>
@@ -325,7 +323,7 @@
     </a>
   </div>
   <div class="contact-info">
-    <div class="contact-info-item"><span>Email</span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5f363125323e326f6d6e661f263e373030713c3032">[email&#160;protected]</a></div>
+    <div class="contact-info-item"><span>Email</span>inzmam0219@yahoo.com</div>
     <div class="contact-info-item"><span>Phone</span>+91 9511504370</div>
     <div class="contact-info-item"><span>Location</span>Tonk, Rajasthan — 304001</div>
     <div class="contact-info-item"><span>Languages</span>English · Hindi · Urdu</div>
@@ -337,7 +335,17 @@
   <span>Engineer · Educator · Social Professional</span>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
-    entries
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
